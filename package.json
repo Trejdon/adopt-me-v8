@@ -1,0 +1,40 @@
+{
+  "name": "adopt-me-v8",
+  "version": "1.0.0",
+  "description": "Project work for the CITRv8 course",
+  "main": "index.js",
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite",
+    "format": "prettier --write \"src/**/*.{js,jsx}\"",
+    "lint": "eslint  \"src/**/*.{js,jsx}\" --quiet",
+    "preview": "vite preview",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Trejdon/adopt-me-v8.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Trejdon/adopt-me-v8/issues"
+  },
+  "homepage": "https://github.com/Trejdon/adopt-me-v8#readme",
+  "devDependencies": {
+    "@vitejs/plugin-react": "^2.1.0",
+    "eslint": "^8.24.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jsx-a11y": "^6.6.1",
+    "eslint-plugin-react": "^7.31.8",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "prettier": "^2.7.1",
+    "vite": "^3.1.4"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}
