@@ -16,6 +16,7 @@ const Results = ({ pets }) => {
               key={id}
               images={images}
               location={`${city}, ${state}`}
+              id={id}
             />
           );
         })
