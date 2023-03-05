@@ -3,8 +3,11 @@
   "version": "1.0.0",
   "description": "Project work for the CITRv8 course",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "build": "vite build",
+    "build": "npm run build:client && npm run build:server",
+    "build:client": "vite build --outDir ../dist/client",
+    "build:server": "vite build --outDir ../dist/server --ssr ServerApp.jsx",
     "dev": "vite",
     "format": "prettier --write \"src/**/*.{js,jsx}\"",
     "lint": "eslint  \"src/**/*.{js,jsx}\" --quiet",
@@ -40,6 +43,7 @@
   },
   "dependencies": {
     "@tanstack/react-query": "^4.10.1",
+    "express": "^4.18.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.4.1"
