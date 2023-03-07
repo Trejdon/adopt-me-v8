@@ -13,7 +13,29 @@ const queryClient = new QueryClient({
   },
 });
 
-test("gives an empty list with no animal", async () => {
+/* Old school way to make a component to use for testing the hook, before renderHook was introduced */
+// function getBreedList(animal) {
+//   let list;
+
+//   function TestComponent() {
+//     list = useBreedList(animal);
+//     return null;
+//   }
+//   render(
+//     <QueryClientProvider client={queryClient}>
+//       <TestComponent />
+//     </QueryClientProvider>
+//   );
+//   render(
+//     <QueryClientProvider client={queryClient}>
+//       <TestComponent />
+//     </QueryClientProvider>
+//   );
+
+//   return list;
+// }
+
+test("gives an empty list with no animal provider", async () => {
   const { result } = renderHook(() => useBreedList(""), {
     wrapper: ({ children }) => (
       <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
@@ -48,6 +70,8 @@ test("gives back breeds with an animal", async () => {
     ),
   });
 
+  // Since fetch has to "fetch" the breedList from the mock we have to use waitFor()
+  // to ensure the breedList result is populated to run the breedList tests
   await waitFor(() => expect(result.current[1]).toBe("success"));
 
   const [breedList] = result.current;

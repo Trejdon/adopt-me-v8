@@ -1,7 +1,7 @@
 {
-  "name": "citr-v8-project",
-  "version": "8.0.0",
-  "description": "Complete Intro to React v8 project",
+  "name": "adopt-me-v8",
+  "version": "1.0.0",
+  "description": "Project work for the CITRv8 course",
   "main": "index.js",
   "scripts": {
     "dev": "vite",
@@ -9,11 +9,12 @@
     "preview": "vite preview",
     "format": "prettier --write \"src/**/*.{js,jsx}\"",
     "lint": "eslint \"src/**/*.{js,jsx}\" --quiet",
-    "test": "vitest",
+    "test": "vitest --run",
+    "test:coverage": "vitest --coverage",
     "test:watch": "vitest --watch"
   },
   "keywords": [],
-  "author": "Brian Holt",
+  "author": "",
   "license": "ISC",
   "devDependencies": {
     "@testing-library/react": "13.4.0",
