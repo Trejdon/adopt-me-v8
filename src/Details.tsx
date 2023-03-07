@@ -1,11 +1,14 @@
-import { useState, useContext, lazy } from "react";
+import { useState, lazy } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
-import AdoptedPetContext from "./AdoptedPetContext";
-import fetchPet from "./fetchPet";
+import { useDispatch } from "react-redux";
+// import { useQuery } from "@tanstack/react-query";
+// import AdoptedPetContext from "./AdoptedPetContext";
+import { adopt } from "./adoptedPetSlice";
+// import fetchPet from "./fetchPet";
 import Carousel from "./Carousel";
 import ErrorBoundary from "./ErrorBoundary";
 // import Modal from "./Modal";
+import { useGetPetQuery } from "./petApiService.js";
 
 const Modal = lazy(() => import("./Modal"));
 
@@ -20,7 +23,8 @@ const Details = () => {
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_, setAdoptedPet] = useContext(AdoptedPetContext);
+  // const [_, setAdoptedPet] = useContext(AdoptedPetContext);
+  const dispatch = useDispatch();
 
   if (results.isLoading) {
     return (
@@ -58,7 +62,7 @@ const Details = () => {
                 <button
                   className="color rounded border-none bg-orange-500 px-6 py-2 text-white hover:opacity-50"
                   onClick={() => {
-                    setAdoptedPet(pet), navigate("/");
+                    dispatch(adopt(pet)), navigate("/");
                   }}
                 >
                   Yes

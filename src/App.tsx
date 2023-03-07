@@ -1,7 +1,12 @@
-import { useState, lazy, Suspense } from "react";
+import { lazy, Suspense } from "react";
 import { Link, Routes, Route } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import AdoptedPetContext from "./AdoptedPetContext";
+import { Provider } from "react-redux";
+import store from "./store";
+
+// Removing for redux usage
+// import AdoptedPetContext from "./AdoptedPetContext";
+
 import { Pet } from "./APIResponsesTypes";
 // Removing these from being normally imported in order to code split them for performance
 // import Details from "./Details";
@@ -21,7 +26,7 @@ const queryClient = new QueryClient({
 });
 
 const App = () => {
-  const adoptedPet = useState(null as Pet | null);
+  // const adoptedPet = useState(null as Pet | null);  */ NO LONGER NEEDED WITH REDUX /*
   return (
     <div
       className="m-0 p-0"
@@ -29,7 +34,8 @@ const App = () => {
         background: "url(http://pets-images.dev-apis.com/pets/wallpaperB.jpg",
       }}
     >
-      <AdoptedPetContext.Provider value={adoptedPet}>
+      {/* <AdoptedPetContext.Provider value={adoptedPet}> */}
+      <Provider store={store}>
         <QueryClientProvider client={queryClient}>
           <Suspense
             fallback={
@@ -49,7 +55,8 @@ const App = () => {
             </Routes>
           </Suspense>
         </QueryClientProvider>
-      </AdoptedPetContext.Provider>
+      </Provider>
+      {/* </AdoptedPetContext.Provider> */}
     </div>
   );
 };

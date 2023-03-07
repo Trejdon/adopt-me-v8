@@ -1,28 +1,30 @@
-import {
-  useState,
-  useContext,
-  useDeferredValue,
-  useMemo,
-  useTransition,
-} from "react";
+import { useState, useDeferredValue, useMemo, useTransition } from "react";
 import { useQuery } from "@tanstack/react-query";
-import AdoptedPetContext from "./AdoptedPetContext";
+import { useSelector, useDispatch } from "react-redux";
+// import AdoptedPetContext from "./AdoptedPetContext";
 import Results from "./Results";
 import useBreedList from "./UseBreedList";
 import fetchSearch from "./fetchSearch";
-import { Animal } from "./APIResponsesTypes";
+import { Animal, Pet } from "./APIResponsesTypes";
+import { all } from "./searchParamsSlice";
 
 const ANIMALS: Animal[] = ["bird", "cat", "dog", "rabbit", "reptile"];
 
+interface RootState {
+  adoptedPet: { value: Pet | null };
+  searchParams: {
+    value: { location: string; animal: Animal; breed: string };
+  };
+}
+
 const SearchParams = () => {
-  const [requestParams, setRequestParams] = useState({
-    location: "",
-    animal: "" as Animal,
-    breed: "",
-  });
+  const dispatch = useDispatch();
+  const requestParams = useSelector(
+    (state: RootState) => state.searchParams.value
+  );
   const [animal, setAnimal] = useState("" as Animal);
   const [breeds] = useBreedList(animal);
-  const [adoptedPet] = useContext(AdoptedPetContext);
+  const adoptedPet = useSelector((state: RootState) => state.adoptedPet.value);
   const [isPending, startTransition] = useTransition();
 
   const results = useQuery(["search", requestParams], fetchSearch);
@@ -42,12 +44,12 @@ const SearchParams = () => {
           e.preventDefault();
           const formData = new FormData(e.currentTarget);
           const obj = {
-            animal: formData.get("animal")?.toString() as Animal ?? "",
+            animal: (formData.get("animal")?.toString() as Animal) ?? "",
             breed: formData.get("breed")?.toString() ?? "",
             location: formData.get("location")?.toString() ?? "",
           };
           startTransition(() => {
-            setRequestParams(obj);
+            dispatch(all(obj));
           });
         }}
       >
